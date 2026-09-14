@@ -1,4 +1,0 @@
-<uses-feature android:name="android.hardware.vr.headtracking" android:version="1" android:required="true" />
-<meta-data android:name="com.oculus.supportedDevices" android:value="quest2|questpro|quest3" />
-<meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only" />
-<category android:name="com.oculus.intent.category.VR" />
