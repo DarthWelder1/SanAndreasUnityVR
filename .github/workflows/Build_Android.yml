@@ -1,0 +1,33 @@
+name: Build Android (Quest)
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          lfs: true
+
+      - name: Activate Unity (online, Personal license)
+        uses: game-ci/unity-activate@v3.0.0-beta.1
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          cliVersion: v0.1.8
+
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2020.3.26f1
+          targetPlatform: Android
+          androidTargetSdkVersion: AndroidApiLevel32
+          androidMinSdkVersion: AndroidApiLevel29
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SanAndreasUnityVR-quest
+          path: build/Android
