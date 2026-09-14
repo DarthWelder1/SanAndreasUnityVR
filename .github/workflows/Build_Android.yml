@@ -7,10 +7,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           lfs: true
-
       - name: Setup Unity
         uses: kuler90/setup-unity@v1
         with:
+          unity-version: 2020.3.26f1
+          unity-version-changeset: 7298b473bc1a
           unity-modules: android
           install-path: /mnt/unity
 
