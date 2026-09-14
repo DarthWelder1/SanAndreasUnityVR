@@ -1,0 +1,28 @@
+name: Get ulf via auto-activation
+on:
+  workflow_dispatch:
+    inputs:
+      alf_run_id:
+        description: "Run ID du workflow get-alf.yml qui a produit le .alf"
+        required: true
+jobs:
+  get-ulf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: activation-file
+          run-id: ${{ inputs.alf_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: npm install --global unity-license-activate
+      - name: Activate
+        run: |
+          ALF=$(ls *.alf)
+          unity-license-activate "${{ secrets.UNITY_EMAIL }}" "${{ secrets.UNITY_PASSWORD }}" "$ALF"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ulf-file
+          path: "*.ulf"
