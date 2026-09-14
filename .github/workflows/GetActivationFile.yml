@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate .alf via Unity docker image
+        continue-on-error: true
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/root/project \
@@ -15,3 +16,4 @@ jobs:
         with:
           name: activation-file
           path: "*.alf"
+          if-no-files-found: error
