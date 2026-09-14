@@ -2,18 +2,18 @@ name: Build Android (Quest)
 on: workflow_dispatch
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
         with:
           lfs: true
+
       - name: Setup Unity
         uses: kuler90/setup-unity@v1
         with:
           unity-version: 2020.3.26f1
           unity-version-changeset: 7298b473bc1a
           unity-modules: android
-          install-path: /mnt/unity
 
       - name: Activate Unity
         uses: kuler90/activate-unity@v1
