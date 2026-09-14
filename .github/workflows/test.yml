@@ -1,0 +1,14 @@
+name: Test online personal activation
+on: workflow_dispatch
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Try direct online activation (no serial, no license file)
+        run: |
+          docker run --rm \
+            -e UNITY_USERNAME="${{ secrets.UNITY_EMAIL }}" \
+            -e UNITY_PASSWORD="${{ secrets.UNITY_PASSWORD }}" \
+            unityci/editor:ubuntu-2020.3.26f1-base-3 \
+            unity-editor -batchmode -nographics -logFile /dev/stdout -quit \
+              -username "$UNITY_USERNAME" -password "$UNITY_PASSWORD"
